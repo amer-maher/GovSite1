@@ -1,0 +1,65 @@
+@model GovSite.Models.Page
+@using System.Text.Json
+@using GovSite
+@{
+  Layout = (string)(ViewBag.TemplateLayout ?? "~/Views/Shared/_Layout.cshtml");
+  ViewBag.Title = Model.Title;
+  var blocks = new List<PageBlock>();
+  try { blocks = JsonSerializer.Deserialize<List<PageBlock>>(Model.BlocksJson ?? "[]") ?? new(); }
+  catch { blocks = new(); }
+}
+
+<section class="py-5" style="background:@Model.HeroBgColor; color:@Model.HeroTextColor">
+  <div class="container text-center">
+    <h1 class="fw-bold">@Model.HeroTitle</h1>
+    <p class="lead">@Model.HeroSubtitle</p>
+    @if(!string.IsNullOrWhiteSpace(Model.HeroImageUrl)){
+      <img src="@Model.HeroImageUrl" alt="hero" class="img-fluid mt-3" style="max-height:240px" />
+    }
+  </div>
+</section>
+
+@foreach (var b in blocks)
+{
+  <section class="py-5" style="background:@b.BgColor; color:@b.TextColor">
+    <div class="container">
+      @if(!string.IsNullOrWhiteSpace(b.Title)){ <h2 class="mb-3">@b.Title</h2> }
+      @if(!string.IsNullOrWhiteSpace(b.Subtitle)){ <p class="text-muted">@b.Subtitle</p> }
+
+      @if(b.Type == "text"){
+        <div class="mt-3">
+          @* استخدم أول عنصر كنص *@
+          <p>@(b.Items.FirstOrDefault()?.Text)</p>
+        </div>
+      }
+     else if(b.Type == "cards" || b.Type == "features"){
+    <div class="row g-3">
+        @foreach(var it in b.Items){
+            <div class="col-md-4">
+                <div class="card h-100">
+                    @if(!string.IsNullOrWhiteSpace(it.ImageUrl)){ <img src="@it.ImageUrl" class="card-img-top" alt=""> }
+                    <div class="card-body">
+                        <h5 class="card-title">@it.Title</h5>
+                        <p class="card-text">@it.Text</p>
+                        @if(!string.IsNullOrWhiteSpace(it.LinkUrl)){
+                            <a href="@it.LinkUrl" class="btn btn-primary">التفاصيل</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+      else if(b.Type == "gallery"){
+        <div class="row g-2">
+          @foreach(var it in b.Items){
+            <div class="col-6 col-md-3">
+              <img src="@it.ImageUrl" class="img-fluid rounded" alt="">
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </section>
+}

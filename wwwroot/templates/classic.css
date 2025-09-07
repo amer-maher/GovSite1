@@ -1,0 +1,4 @@
+.classic-body{ background:#f8f9fa }
+.classic-header{ background:#ffffff }
+.classic-header .logo{ width:40px; height:40px; object-fit:contain }
+.classic-footer{ background:#ffffff; border-top:1px solid rgba(0,0,0,.06) }

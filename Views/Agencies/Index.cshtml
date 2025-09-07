@@ -1,0 +1,29 @@
+@model IEnumerable<GovSite.Models.Agency>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "الجهات الحكومية";
+}
+<div class="d-flex justify-content-between mb-3">
+  <h2>الجهات الحكومية</h2>
+  <a class="btn btn-primary" asp-action="Create">إضافة جهة</a>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table">
+      <thead><tr><th>الاسم</th><th>Slug</th><th>القالب</th><th>إجراءات</th></tr></thead>
+      <tbody>
+      @foreach (var a in Model)
+      {
+        <tr>
+          <td>@a.Name</td>
+          <td>@a.Slug</td>
+          <td>@a.Template?.Name</td>
+          <td>
+            <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@a.Id">تعديل</a>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+</div>
