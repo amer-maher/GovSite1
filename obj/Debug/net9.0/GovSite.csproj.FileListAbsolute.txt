@@ -408,3 +408,4 @@
 /home/eng_amer/Desktop/myProject/GovSite/GovSite1/obj/Debug/net9.0/GovSite.pdb
 /home/eng_amer/Desktop/myProject/GovSite/GovSite1/obj/Debug/net9.0/GovSite.genruntimeconfig.cache
 /home/eng_amer/Desktop/myProject/GovSite/GovSite1/obj/Debug/net9.0/ref/GovSite.dll
+/home/eng_amer/Desktop/myProject/GovSite/GovSite1/obj/Debug/net9.0/GovSite.sourcelink.json

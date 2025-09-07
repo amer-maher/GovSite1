@@ -141,7 +141,7 @@ function render(){
     card.className = 'card my-3';
     card.innerHTML = `
       <div class="card-header d-flex justify-content-between align-items-center">
-        <strong>بلوك: ${b.type}</strong>
+        <strong>بلوك: ${b.Type}</strong>
         <div class="d-flex gap-2">
           <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move(${i},-1)">▲</button>
           <button type="button" class="btn btn-sm btn-outline-secondary" onclick="move(${i},1)">▼</button>
@@ -151,70 +151,138 @@ function render(){
       <div class="card-body">
         <div class="row g-2">
           <div class="col-md-4"><label class="form-label">العنوان</label>
-            <input class="form-control" value="${b.title||''}" oninput="setv(${i},'title',this.value)"/>
+            <input class="form-control" value="${b.Title||''}" oninput="setv(${i},'Title',this.value)"/>
           </div>
           <div class="col-md-4"><label class="form-label">وصف</label>
-            <input class="form-control" value="${b.subtitle||''}" oninput="setv(${i},'subtitle',this.value)"/>
+            <input class="form-control" value="${b.Subtitle||''}" oninput="setv(${i},'Subtitle',this.value)"/>
           </div>
           <div class="col-md-2"><label class="form-label">خلفية</label>
-            <input type="color" class="form-control form-control-color" value="${b.bgColor||'#ffffff'}" oninput="setv(${i},'bgColor',this.value)"/>
+            <input type="color" class="form-control form-control-color" value="${b.BgColor||'#ffffff'}" oninput="setv(${i},'BgColor',this.value)"/>
           </div>
           <div class="col-md-2"><label class="form-label">لون نص</label>
-            <input type="color" class="form-control form-control-color" value="${b.textColor||'#000000'}" oninput="setv(${i},'textColor',this.value)"/>
+            <input type="color" class="form-control form-control-color" value="${b.TextColor||'#000000'}" oninput="setv(${i},'TextColor',this.value)"/>
           </div>
         </div>
         <div class="mt-3">
           <button type="button" class="btn btn-sm btn-outline-primary" onclick="addItem(${i})">+ عنصر</button>
         </div>
         <div class="row mt-2" id="items-${i}">
-          ${(b.items||[]).map((it,j)=>`
+          ${(b.Items||[]).map((it,j)=>`
             <div class="col-md-6">
               <div class="border rounded p-2 mb-2">
-                <div class="mb-1"><input class="form-control" placeholder="عنوان" value="${it.title||''}" oninput="setItem(${i},${j},'title',this.value)"></div>
-                <div class="mb-1"><input class="form-control" placeholder="نص" value="${it.text||''}" oninput="setItem(${i},${j},'text',this.value)"></div>
+                <div class="mb-1"><input class="form-control" placeholder="عنوان" value="${it.Title||''}" oninput="setItem(${i},${j},'Title',this.value)"></div>
+                <div class="mb-1"><input class="form-control" placeholder="نص" value="${it.Text||''}" oninput="setItem(${i},${j},'Text',this.value)"></div>
                 <div class="mb-1 input-group">
-                  <input class="form-control" placeholder="/uploads/..." value="${it.imageUrl||''}" oninput="setItem(${i},${j},'imageUrl',this.value)">
-                  <input type="file" class="form-control" onchange="upload(this, url => setItem(${i},${j},'imageUrl',url))">
+                  <input class="form-control" placeholder="/uploads/..." value="${it.ImageUrl||''}" oninput="setItem(${i},${j},'ImageUrl',this.value)">
+                  <input type="file" class="form-control" onchange="upload(this, url => setItem(${i},${j},'ImageUrl',url))">
                 </div>
-                <div class="mb-1"><input class="form-control" placeholder="رابط" value="${it.linkUrl||''}" oninput="setItem(${i},${j},'linkUrl',this.value)"></div>
+                <div class="mb-1"><input class="form-control" placeholder="رابط" value="${it.LinkUrl||''}" oninput="setItem(${i},${j},'LinkUrl',this.value)"></div>
                 <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeItem(${i},${j})">حذف العنصر</button>
               </div>
             </div>`).join('')}
         </div>
-      </div>`;
+      </div>
+    </div>`;
     host.appendChild(card);
   });
   updateHidden();
 }
 
 
-function addBlock(type){ blocks.push({type, title:'', subtitle:'', bgColor:'#ffffff', textColor:'#000000', items:[]}); render(); }
+function addBlock(type){ blocks.push({Type:type, Title:'', Subtitle:'', BgColor:'#ffffff', TextColor:'#000000', Items:[]}); render(); }
 function removeBlock(i){ blocks.splice(i,1); render(); }
 function move(i,d){ const ni=i+d; if(ni<0||ni>=blocks.length) return; [blocks[i],blocks[ni]]=[blocks[ni],blocks[i]]; render(); }
 function setv(i,k,v){ blocks[i][k]=v; updateHidden(); }
-function addItem(i){ blocks[i].items = blocks[i].items||[]; blocks[i].items.push({}); render(); }
-function removeItem(i,j){ blocks[i].items.splice(j,1); render(); }
-function setItem(i,j,k,v){ blocks[i].items[j][k]=v; updateHidden(); }
+function addItem(i){ blocks[i].Items = blocks[i].Items||[]; blocks[i].Items.push({}); render(); }
+function removeItem(i,j){ blocks[i].Items.splice(j,1); render(); }
+function setItem(i,j,k,v){ blocks[i].Items[j][k]=v; updateHidden(); }
 
 // --- رفع الملفات ---
 async function upload(input, cb){
   const f = input.files?.[0]; if(!f) return;
-  const fd = new FormData(); fd.append('file', f);
-  const res = await fetch('/upload', { method:'POST', body: fd });
-  if (!res.ok) { alert('فشل الرفع'); return; }
-  const data = await res.json();
-  cb(data.url);
-  updateHidden();
+  
+  // Show loading state
+  const originalValue = input.value;
+  input.disabled = true;
+  input.value = 'جاري الرفع...';
+  
+  try {
+    const fd = new FormData(); 
+    fd.append('file', f);
+    
+    // Add CSRF token to form data
+    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+    if (token) {
+      fd.append('__RequestVerificationToken', token);
+    }
+    
+    const res = await fetch('/upload', { 
+      method:'POST', 
+      body: fd
+    });
+    
+    if (!res.ok) { 
+      const errorData = await res.json().catch(() => ({ error: 'فشل الرفع' }));
+      alert(`فشل الرفع: ${errorData.error || 'خطأ غير معروف'}`); 
+      return; 
+    }
+    
+    const data = await res.json();
+    cb(data.url);
+    updateHidden();
+    
+  } catch (error) {
+    console.error('Upload error:', error);
+    alert('فشل الرفع: خطأ في الاتصال');
+  } finally {
+    // Reset input state
+    input.disabled = false;
+    input.value = originalValue;
+  }
 }
 
 // --- رفع صورة الهيرو ---
 document.getElementById('heroUpload')?.addEventListener('change', async (e)=>{
   const f = e.target.files?.[0]; if(!f) return;
-  const fd = new FormData(); fd.append('file', f);
-  const res = await fetch('/upload', { method:'POST', body: fd });
-  if (!res.ok) { alert('فشل الرفع'); return; }
-  const data = await res.json();
-  document.querySelector('input[name="HeroImageUrl"]').value = data.url;
+  
+  // Show loading state
+  const input = e.target;
+  const originalValue = input.value;
+  input.disabled = true;
+  input.value = 'جاري الرفع...';
+  
+  try {
+    const fd = new FormData(); 
+    fd.append('file', f);
+    
+    // Add CSRF token to form data
+    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+    if (token) {
+      fd.append('__RequestVerificationToken', token);
+    }
+    
+    const res = await fetch('/upload', { 
+      method:'POST', 
+      body: fd
+    });
+    
+    if (!res.ok) { 
+      const errorData = await res.json().catch(() => ({ error: 'فشل الرفع' }));
+      alert(`فشل الرفع: ${errorData.error || 'خطأ غير معروف'}`); 
+      return; 
+    }
+    
+    const data = await res.json();
+    document.querySelector('input[name="HeroImageUrl"]').value = data.url;
+    
+  } catch (error) {
+    console.error('Upload error:', error);
+    alert('فشل الرفع: خطأ في الاتصال');
+  } finally {
+    // Reset input state
+    input.disabled = false;
+    input.value = originalValue;
+  }
 });
 
 // --- قبل الإرسال ---

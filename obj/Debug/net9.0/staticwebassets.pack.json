@@ -273,6 +273,10 @@
       "PackagePath": "staticwebassets/templates/modern.css"
     },
     {
+      "Id": "/home/eng_amer/Desktop/myProject/GovSite/GovSite1/wwwroot/uploads/7adce0a753da4985b8727d1ea0eec11a.jpeg",
+      "PackagePath": "staticwebassets/uploads/7adce0a753da4985b8727d1ea0eec11a.jpeg"
+    },
+    {
       "Id": "/home/eng_amer/Desktop/myProject/GovSite/GovSite1/wwwroot/uploads/8d60e7968f25470195c5a75fdc79236c.jpg",
       "PackagePath": "staticwebassets/uploads/8d60e7968f25470195c5a75fdc79236c.jpg"
     },

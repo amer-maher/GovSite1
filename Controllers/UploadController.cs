@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GovSite.Controllers;
 
+[Authorize] // Require authentication for uploads
 public class UploadController : Controller
 {
     private static readonly string[] AllowedExt = [".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"];
 
     [HttpPost("/upload")]
     [RequestSizeLimit(20_000_000)] // 20MB
+    [ValidateAntiForgeryToken] // Require CSRF token
     public async Task<IActionResult> Upload(IFormFile file, [FromServices] IWebHostEnvironment env)
     {
         if (file == null || file.Length == 0)

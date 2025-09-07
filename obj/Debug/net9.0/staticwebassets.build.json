@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zfdFQRln0SFlBgUvjk95YS3dYTwxRweBV2GdofnFrVk=",
+  "Hash": "WscB59vcFBS5i2QvBz0Y3neq7hiGAUxqvS5PA5ejiYU=",
   "Source": "GovSite",
   "BasePath": "_content/GovSite",
   "Mode": "Default",
@@ -2892,6 +2892,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/templates/modern.css"
+    },
+    {
+      "Identity": "/home/eng_amer/Desktop/myProject/GovSite/GovSite1/wwwroot/uploads/7adce0a753da4985b8727d1ea0eec11a.jpeg",
+      "SourceId": "GovSite",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/eng_amer/Desktop/myProject/GovSite/GovSite1/wwwroot/",
+      "BasePath": "_content/GovSite",
+      "RelativePath": "uploads/7adce0a753da4985b8727d1ea0eec11a#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yojqehpgw5",
+      "Integrity": "ztfguT/tmfLOthQwcgNsGU9hFHm3H9XMCiDnyv5oV6Y=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/7adce0a753da4985b8727d1ea0eec11a.jpeg"
     },
     {
       "Identity": "/home/eng_amer/Desktop/myProject/GovSite/GovSite1/wwwroot/uploads/8d60e7968f25470195c5a75fdc79236c.jpg",
@@ -23280,6 +23301,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-ljv5elZWb4yvqnVeDFVscjMSWBIZF2PE7RWIAcidymE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/7adce0a753da4985b8727d1ea0eec11a.jpeg",
+      "AssetFile": "/home/eng_amer/Desktop/myProject/GovSite/GovSite1/wwwroot/uploads/7adce0a753da4985b8727d1ea0eec11a.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "260899"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ztfguT/tmfLOthQwcgNsGU9hFHm3H9XMCiDnyv5oV6Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 07 Sep 2025 18:56:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ztfguT/tmfLOthQwcgNsGU9hFHm3H9XMCiDnyv5oV6Y="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/7adce0a753da4985b8727d1ea0eec11a.yojqehpgw5.jpeg",
+      "AssetFile": "/home/eng_amer/Desktop/myProject/GovSite/GovSite1/wwwroot/uploads/7adce0a753da4985b8727d1ea0eec11a.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "260899"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ztfguT/tmfLOthQwcgNsGU9hFHm3H9XMCiDnyv5oV6Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 07 Sep 2025 18:56:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yojqehpgw5"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/7adce0a753da4985b8727d1ea0eec11a.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ztfguT/tmfLOthQwcgNsGU9hFHm3H9XMCiDnyv5oV6Y="
         }
       ]
     },
